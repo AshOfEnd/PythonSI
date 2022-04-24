@@ -1,3 +1,4 @@
+import cv as cv
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, layers, models
@@ -43,4 +44,12 @@ model.save('Classifier.model')
 
 model = models.load_model()
 
+img= cv.imread('obrazek.jpg')
+img= cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
+
+plt.imshow(img, cmap=plt.cm.binary)
+
+prediction=model.predict(np.array([img]) /255)
+index=np.argmax(prediction)
+print(f'odpowiedz to: {class_names[index]}')
